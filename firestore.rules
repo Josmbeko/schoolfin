@@ -1,0 +1,21 @@
+rules_version='2';
+service cloud.firestore{
+ match /databases/{database}/documents{
+  function signedIn(){return request.auth!=null;}
+  function profile(){return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;}
+  function sameSchool(schoolId){return signedIn() && profile().schoolId==schoolId && profile().active!=false;}
+  function role(r){return sameSchool(r.schoolId) && profile().role==r;}
+  function canRead(schoolId){return sameSchool(schoolId);}
+  match /users/{uid}{allow read: if signedIn() && request.auth.uid==uid; allow write: if false;}
+  match /schools/{schoolId}{allow read: if canRead(schoolId); allow write: if false;
+   match /students/{id}{allow read: if canRead(schoolId); allow write: if false;}
+   match /feeDefinitions/{id}{allow read: if canRead(schoolId); allow write: if false;}
+   match /payments/{id}{allow read: if canRead(schoolId); allow write: if false;}
+   match /financialLedger/{id}{allow read: if canRead(schoolId); allow write: if false;}
+   match /cashSessions/{id}{allow read: if canRead(schoolId); allow write: if false;}
+   match /auditLogs/{id}{allow read: if canRead(schoolId); allow write: if false;}
+   match /counters/{id}{allow read: if role('admin'); allow write: if false;}
+   match /idempotency/{id}{allow read: if false; allow write: if false;}
+  }
+ }
+}

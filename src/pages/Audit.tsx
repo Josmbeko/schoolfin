@@ -1,0 +1,2 @@
+import {ShieldCheck} from 'lucide-react';
+export default function Audit(){return <div className="space-y-5"><div><h2 className="text-xl font-bold">Piste d'audit</h2><p className="text-slate-500 text-sm">Journal append-only des opérations sensibles.</p></div><div className="card p-8 text-center"><ShieldCheck className="mx-auto mb-3 text-slate-400" size={32}/><p className="text-slate-500">Les événements sont écrits par le backend. Les utilisateurs ne peuvent pas modifier ou supprimer les logs.</p></div></div>}

@@ -1,11 +1,33 @@
-<div align="center">
+# EduFinance Pro
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+Socle sécurisé d'une SPA de gestion scolaire, académique et financière pour établissements francophones.
 
-  <h1>Built with AI Studio</h2>
+## Stack
+React + TypeScript + Vite, Firebase Auth, Firestore, Cloud Functions, Lucide.
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+## Démarrage
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+```bash
+npm install
+npm install --prefix functions
+cp .env.example .env.local
+npm run dev
+```
 
-</div>
+Configurer ensuite Firebase avec un projet réel ou les émulateurs.
+
+## Backend
+
+```bash
+npm run functions:build
+firebase deploy --only functions,firestore
+```
+
+## Important
+Ce dépôt est le **socle technique sécurisé V0.1**, pas encore la totalité des écrans métier. Les opérations financières critiques sont volontairement placées côté serveur. Il reste à implémenter les échéanciers, allocations détaillées, avances, bourses, reporting, impression et MFA avant une mise en production.
+
+## Roadmap
+- V0.1 : architecture, Auth, RBAC serveur, paiement atomique, ledger, caisse, audit, règles Firestore.
+- V0.2 : catalogue/facturation/échéanciers/allocations/avances.
+- V0.3 : reçus QR, impressions, reporting, exports.
+- V0.4 : MFA, App Check, tests de concurrence, durcissement production.
